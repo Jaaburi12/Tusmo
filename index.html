@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laam</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0f0f0f, #1e1e1e);
+      color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: gold;
+      text-shadow: 2px 2px 10px #ffaa00;
+      margin-bottom: 20px;
+    }
+
+    .top-widget,
+    .xlm-widget {
+      width: 100%;
+      max-width: 1000px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .description {
+      max-width: 800px;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-left: 5px solid gold;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .explorer {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .explorer a {
+      background-color: gold;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+
+    .explorer a:hover {
+      background-color: #ffd700;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .description {
+        padding: 15px 20px;
+      }
+    }
+  </style>
+
+  <!-- LiveCoinWatch Widget Script -->
+  <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
+</head>
+<body>
+
+  <!-- Title -->
+  <h1>Laam</h1>
+
+  <!-- Top Marquee Widget -->
+  <div class="top-widget">
+    <div class="livecoinwatch-widget-5"
+         lcw-base="USD"
+         lcw-color-tx="#ffffff"
+         lcw-marquee-1="coins"
+         lcw-marquee-2="none"
+         lcw-marquee-items="10">
+    </div>
+  </div>
+
+  <!-- Token Description -->
+  <div class="description">
+    <p>
+      <strong>Laam Coin</strong> is a native token built on <strong>Stellar</strong>, designed to be a modern solution for digital currency.
+      It has a <strong>fixed max supply of 1,335,577 LAAM</strong> — minted only once to preserve scarcity and long-term value.
+    </p>
+
+    <p>
+      Laam is an open project aimed at supporting real-world use cases such as property sales, vehicle rentals, and community-based commerce.
+      It can be easily added to popular wallets by creating a <em>trustline</em>, including <strong>Lobstr</strong>, <strong>Solar</strong>, and <strong>Freighter</strong>.
+    </p>
+
+    <p>
+      The token is designed to be secure, non-inflationary, and fully tradable — with no need for a liquidity pool.
+    </p>
+  </div>
+
+  <!-- XLM Widget -->
+  <div class="xlm-widget">
+    <div class="livecoinwatch-widget-6"
+         lcw-coin="XLM"
+         lcw-base="USD"
+         lcw-period="d"
+         lcw-color-tx="#ffffff"
+         lcw-color-bg="#505153"
+         lcw-border-w="1">
+    </div>
+  </div>
+
+  <!-- Button to Stellar Explorer -->
+  <div class="explorer">
+    <a href="https://stellar.expert/explorer/public/asset/Laam-GAL4ECDAXNBMJYFCWIJ32HKVIRLCNEXY664CAZYI3EINQWPLXTMEPR64" target="_blank">
+      View Laam on Stellar Explorer
+    </a>
+  </div>
+
+</body>
+</html>
