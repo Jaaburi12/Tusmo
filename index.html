@@ -1,133 +1,486 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="so">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laam</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Super App - Demo</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #0f0f0f, #1e1e1e);
-      color: #f5f5f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 20px;
+    :root{
+      --primary:#007bff;
+      --bg:#f5f7fb;
+      --card:#fff;
+    }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:#222;
+    }
+    header{
+      background:var(--primary);
+      color:white;
+      padding:14px 18px;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    header .title {display:flex; gap:12px; align-items:center;}
+    header button{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.25);
+      color:white;
+      padding:8px 12px;
+      border-radius:8px;
+      cursor:pointer;
     }
 
-    h1 {
-      font-size: 3rem;
-      color: gold;
-      text-shadow: 2px 2px 10px #ffaa00;
-      margin-bottom: 20px;
-    }
+    .container{padding:18px; max-width:980px; margin:0 auto;}
 
-    .top-widget,
-    .xlm-widget {
-      width: 100%;
-      max-width: 1000px;
-      margin-bottom: 20px;
-      overflow-x: auto;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:16px;
     }
-
-    .description {
-      max-width: 800px;
-      background-color: rgba(255, 255, 255, 0.05);
-      border-left: 5px solid gold;
-      padding: 25px 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-      line-height: 1.8;
-      margin-bottom: 30px;
+    .card{
+      background:var(--card);
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 6px 14px rgba(20,30,50,0.06);
+      text-align:center;
+      cursor:pointer;
+      transition:transform .14s ease, box-shadow .14s ease;
     }
+    .card:hover{ transform:translateY(-4px); box-shadow:0 10px 22px rgba(20,30,50,0.09); }
 
-    .explorer {
-      margin-top: 20px;
-      text-align: center;
+    /* Hospitals page */
+    .hidden{ display:none; }
+    .topbar{ display:flex; gap:12px; align-items:center; margin-bottom:12px; }
+    .back{ padding:8px 12px; background:white; border-radius:10px; border:1px solid #eee; cursor:pointer; }
+    .search{ flex:1; }
+    input[type="search"], select {
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      background:white;
+      box-sizing:border-box;
     }
-
-    .explorer a {
-      background-color: gold;
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-      display: inline-block;
-      transition: background-color 0.3s ease;
+    .list{ display:grid; gap:12px; margin-top:12px; }
+    .hosp-card{
+      display:flex;
+      gap:12px;
+      padding:14px;
+      border-radius:10px;
+      background:white;
+      border:1px solid #f0f0f0;
+      align-items:center;
+      justify-content:space-between;
     }
+    .h-info{ flex:1; }
+    .h-info h3{ margin:0 0 6px 0; font-size:16px; }
+    .h-info p{ margin:0; font-size:13px; color:#555; }
 
-    .explorer a:hover {
-      background-color: #ffd700;
+    .btn {
+      background:var(--primary);
+      color:white;
+      border:none;
+      padding:8px 12px;
+      border-radius:8px;
+      cursor:pointer;
     }
+    .btn.secondary{ background:#6c757d; }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      .description {
-        padding: 15px 20px;
-      }
+    /* modal */
+    .modal-bg{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.4); z-index:60;
     }
+    .modal{
+      width:100%; max-width:520px;
+      background:white; border-radius:12px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    }
+    label{ display:block; margin-top:10px; font-size:13px; color:#333; }
+    input, select { width:100%; padding:10px 12px; margin-top:6px; border-radius:8px; border:1px solid #ddd; box-sizing:border-box; }
+
+    .row{ display:flex; gap:10px; }
+    .col{ flex:1; }
+    .small{ font-size:13px; color:#666; margin-top:6px; }
+
+    .book-list{ margin-top:14px; }
+    .book-item{ background:#fff; padding:12px; border-radius:10px; margin-bottom:8px; border:1px solid #f0f0f0; }
+    .muted{ color:#666; font-size:13px; }
+    footer{ text-align:center; color:#777; padding:20px 0; }
   </style>
-
-  <!-- LiveCoinWatch Widget Script -->
-  <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
 </head>
 <body>
+  <header>
+    <div class="title">
+      <span style="font-size:20px">🌐</span>
+      <div>
+        <div style="font-weight:600">Super App Demo</div>
+        <div style="font-size:12px; opacity:0.9">Hospitals booking sample</div>
+      </div>
+    </div>
 
-  <!-- Title -->
-  <h1>Laam</h1>
+    <div>
+      <button id="btnDashboard">Dashboard</button>
+    </div>
+  </header>
 
-  <!-- Top Marquee Widget -->
-  <div class="top-widget">
-    <div class="livecoinwatch-widget-5"
-         lcw-base="USD"
-         lcw-color-tx="#ffffff"
-         lcw-marquee-1="coins"
-         lcw-marquee-2="none"
-         lcw-marquee-items="10">
+  <div class="container">
+    <!-- Dashboard -->
+    <div id="dashboard">
+      <h2 style="margin:8px 0 18px 0;">Menu</h2>
+      <div class="grid">
+        <div class="card" onclick="openHospitals()">
+          <div style="font-size:28px">🏥</div>
+          <div style="margin-top:8px; font-weight:600">Hospitals</div>
+          <div class="muted" style="margin-top:6px">Book appointment, see details</div>
+        </div>
+        <div class="card" onclick="alert('Flights page demo: coming soon')">
+          <div style="font-size:28px">✈️</div>
+          <div style="margin-top:8px; font-weight:600">Flights</div>
+          <div class="muted" style="margin-top:6px">Search & book tickets</div>
+        </div>
+        <div class="card" onclick="alert('Store demo: coming soon')">
+          <div style="font-size:28px">🛒</div>
+          <div style="margin-top:8px; font-weight:600">Store</div>
+          <div class="muted" style="margin-top:6px">Shop products</div>
+        </div>
+        <div class="card" onclick="openBookings()">
+          <div style="font-size:28px">🗂️</div>
+          <div style="margin-top:8px; font-weight:600">My Bookings</div>
+          <div class="muted" style="margin-top:6px">View saved appointments</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hospitals -->
+    <div id="hospitalsPage" class="hidden">
+      <div class="topbar">
+        <button class="back" onclick="showDashboard()">← Back</button>
+        <div class="search">
+          <input id="searchInput" type="search" placeholder="Raadi isbitaal ama goob (magac, location...)">
+        </div>
+        <div style="width:140px;">
+          <select id="filterDept">
+            <option value="">All Departments</option>
+            <option value="General">General</option>
+            <option value="Cardiology">Cardiology</option>
+            <option value="Pediatrics">Pediatrics</option>
+            <option value="Orthopedics">Orthopedics</option>
+            <option value="Dentistry">Dentistry</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="hospList" class="list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- Bookings list (separate view) -->
+    <div id="bookingsPage" class="hidden">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+        <button class="back" onclick="showDashboard()">← Back</button>
+        <h3 style="margin:0;">My Bookings</h3>
+      </div>
+      <div id="bookListArea">
+        <!-- populated -->
+      </div>
     </div>
   </div>
 
-  <!-- Token Description -->
-  <div class="description">
-    <p>
-      <strong>Laam Coin</strong> is a native token built on <strong>Stellar</strong>, designed to be a modern solution for digital currency.
-      It has a <strong>fixed max supply of 1,335,577 LAAM</strong> — minted only once to preserve scarcity and long-term value.
-    </p>
+  <footer>
+    Demo — HTML/JS Web App. Kaydinta bookings waxay ku jirtaa browser-ka (localStorage).
+  </footer>
 
-    <p>
-      Laam is an open project aimed at supporting real-world use cases such as property sales, vehicle rentals, and community-based commerce.
-      It can be easily added to popular wallets by creating a <em>trustline</em>, including <strong>Lobstr</strong>, <strong>Solar</strong>, and <strong>Freighter</strong>.
-    </p>
+  <!-- Modal for booking -->
+  <div id="modal" class="hidden"></div>
 
-    <p>
-      The token is designed to be secure, non-inflationary, and fully tradable — with no need for a liquidity pool.
-    </p>
-  </div>
+  <script>
+    // Sample hospitals data with available slots
+    const hospitals = [
+      {
+        id:1, name:"Somali Care Hospital", location:"Hargeisa", dept:["General","Pediatrics","Dentistry"],
+        desc:"Isbitaal casri ah oo bixiya adeegyada guud iyo carruurta.",
+        slots:[
+          {id:"s1","date":"2025-09-10","time":"09:00"},
+          {id:"s2","date":"2025-09-10","time":"11:00"},
+          {id:"s3","date":"2025-09-11","time":"15:00"}
+        ]
+      },
+      {
+        id:2, name:"Ocean View Medical", location:"Mogadishu", dept:["Cardiology","Orthopedics","General"],
+        desc:"Xarun caafimaad oo ku taalla caasimada.",
+        slots:[
+          {id:"s4","date":"2025-09-12","time":"10:30"},
+          {id:"s5","date":"2025-09-12","time":"14:00"}
+        ]
+      },
+      {
+        id:3, name:"Green Valley Clinic", location:"Berbera", dept:["General","Dentistry"],
+        desc:"Clinic yar oo la isku halayn karo.",
+        slots:[
+          {id:"s6","date":"2025-09-13","time":"08:00"},
+          {id:"s7","date":"2025-09-13","time":"09:30"},
+          {id:"s8","date":"2025-09-14","time":"12:00"}
+        ]
+      }
+    ];
 
-  <!-- XLM Widget -->
-  <div class="xlm-widget">
-    <div class="livecoinwatch-widget-6"
-         lcw-coin="XLM"
-         lcw-base="USD"
-         lcw-period="d"
-         lcw-color-tx="#ffffff"
-         lcw-color-bg="#505153"
-         lcw-border-w="1">
-    </div>
-  </div>
+    // LocalStorage key
+    const BOOK_KEY = 'superapp_bookings_demo_v1';
 
-  <!-- Button to Stellar Explorer -->
-  <div class="explorer">
-    <a href="https://stellar.expert/explorer/public/asset/Laam-GAL4ECDAXNBMJYFCWIJ32HKVIRLCNEXY664CAZYI3EINQWPLXTMEPR64" target="_blank">
-      View Laam on Stellar Explorer
-    </a>
-  </div>
+    // init
+    document.addEventListener('DOMContentLoaded', () => {
+      renderHospitals(hospitals);
+      document.getElementById('searchInput').addEventListener('input', onSearch);
+      document.getElementById('filterDept').addEventListener('change', onSearch);
+      document.getElementById('btnDashboard').addEventListener('click', showDashboard);
+      renderBookings();
+    });
 
+    // Show dashboard
+    function showDashboard(){
+      document.getElementById('dashboard').classList.remove('hidden');
+      document.getElementById('hospitalsPage').classList.add('hidden');
+      document.getElementById('bookingsPage').classList.add('hidden');
+      closeModal();
+    }
+
+    // Open hospitals
+    function openHospitals(){
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('hospitalsPage').classList.remove('hidden');
+      document.getElementById('bookingsPage').classList.add('hidden');
+      closeModal();
+    }
+
+    // Render hospital list
+    function renderHospitals(list){
+      const container = document.getElementById('hospList');
+      container.innerHTML = '';
+      if(list.length === 0){
+        container.innerHTML = '<div class="muted">Ma jiro isbitaal ku habboon raadintaada.</div>';
+        return;
+      }
+      list.forEach(h => {
+        const el = document.createElement('div');
+        el.className = 'hosp-card';
+        el.innerHTML = `
+          <div class="h-info">
+            <h3>${escapeHtml(h.name)}</h3>
+            <p class="muted">${escapeHtml(h.location)} • ${h.dept.join(', ')}</p>
+            <p class="muted small">${escapeHtml(h.desc)}</p>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="btn" onclick='openDetails(${h.id})'>Details</button>
+            <button class="btn secondary" onclick='openBooking(${h.id})'>Book</button>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    // Open details (simple modal)
+    function openDetails(id){
+      const h = hospitals.find(x=>x.id===id);
+      if(!h) return;
+      const html = `
+        <div class="modal-bg" onclick="closeModal()">
+          <div class="modal" onclick="event.stopPropagation()">
+            <h3 style="margin:0 0 6px 0">${escapeHtml(h.name)}</h3>
+            <p class="muted">${escapeHtml(h.location)} • Departments: ${h.dept.join(', ')}</p>
+            <p style="margin-top:10px">${escapeHtml(h.desc)}</p>
+            <h4 style="margin-top:12px">Upcoming Slots</h4>
+            <div>
+              ${h.slots.map(s=>`<div class="book-item">${s.date} — ${s.time}</div>`).join('')}
+            </div>
+            <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+              <button class="back" onclick="closeModal()">Close</button>
+              <button class="btn" onclick="openBooking(${h.id})">Book Now</button>
+            </div>
+          </div>
+        </div>
+      `;
+      showModal(html);
+    }
+
+    // Open booking modal
+    function openBooking(id){
+      const h = hospitals.find(x=>x.id===id);
+      if(!h) return;
+      // build slot options
+      const options = h.slots.map(s => `<option value="${s.id}">${s.date} — ${s.time}</option>`).join('');
+      const html = `
+        <div class="modal-bg" onclick="closeModal()">
+          <div class="modal" onclick="event.stopPropagation()">
+            <h3 style="margin:0 0 6px 0">Book appointment — ${escapeHtml(h.name)}</h3>
+            <p class="muted">${escapeHtml(h.location)}</p>
+            <label>Dooro slot</label>
+            <select id="slotSelect">${options}</select>
+
+            <label>Magaca bukaanka</label>
+            <input id="patientName" placeholder="Magaca buuxa" />
+
+            <div class="row">
+              <div class="col">
+                <label>Da' (optional)</label>
+                <input id="age" placeholder="eg. 30" />
+              </div>
+              <div class="col">
+                <label>Number / Taleefan</label>
+                <input id="phone" placeholder="+252 6..." />
+              </div>
+            </div>
+
+            <label>Qoraal (reason) (optional)</label>
+            <input id="note" placeholder="e.g. Fever, checkup, etc." />
+
+            <div style="display:flex; gap:8px; margin-top:12px; justify-content:flex-end;">
+              <button class="back" onclick="closeModal()">Cancel</button>
+              <button class="btn" onclick="confirmBooking(${h.id})">Confirm Booking</button>
+            </div>
+          </div>
+        </div>
+      `;
+      showModal(html);
+    }
+
+    // Confirm booking: save to localStorage
+    function confirmBooking(hospitalId){
+      const h = hospitals.find(x=>x.id===hospitalId);
+      if(!h) return;
+      const slotId = document.getElementById('slotSelect').value;
+      const slot = h.slots.find(s=>s.id===slotId);
+      if(!slot){ alert('Fadlan dooro slot'); return; }
+      const name = (document.getElementById('patientName').value || '').trim();
+      const phone = (document.getElementById('phone').value || '').trim();
+      const age = (document.getElementById('age').value || '').trim();
+      const note = (document.getElementById('note').value || '').trim();
+
+      if(!name || !phone){
+        alert('Fadlan buuxi magaca iyo number-ka taleefanka');
+        return;
+      }
+
+      // create booking object
+      const bookings = loadBookings();
+      const booking = {
+        id: 'b' + Date.now(),
+        hospitalId: h.id,
+        hospitalName: h.name,
+        location: h.location,
+        slotId: slot.id,
+        date: slot.date,
+        time: slot.time,
+        patientName: name,
+        phone, age, note,
+        createdAt: new Date().toISOString()
+      };
+
+      bookings.push(booking);
+      saveBookings(bookings);
+
+      closeModal();
+      alert('Booking la diiwaan geliyey! Waxaad ka arki kartaa My Bookings.');
+      renderBookings();
+      showBookingsPage();
+    }
+
+    // LocalStorage helpers
+    function loadBookings(){
+      try{
+        const raw = localStorage.getItem(BOOK_KEY);
+        if(!raw) return [];
+        return JSON.parse(raw);
+      }catch(e){
+        return [];
+      }
+    }
+    function saveBookings(arr){
+      localStorage.setItem(BOOK_KEY, JSON.stringify(arr));
+    }
+
+    // Bookings view
+    function renderBookings(){
+      const area = document.getElementById('bookListArea');
+      if(!area) return;
+      const arr = loadBookings();
+      if(arr.length === 0){
+        area.innerHTML = '<div class="muted">Ma jiro booking kaydsan.</div>';
+        return;
+      }
+      area.innerHTML = arr.map(b => `
+        <div class="book-item">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>${escapeHtml(b.hospitalName)}</strong>
+              <div class="muted">${escapeHtml(b.location)}</div>
+            </div>
+            <div style="text-align:right">
+              <div>${escapeHtml(b.date)} • ${escapeHtml(b.time)}</div>
+              <div class="muted" style="font-size:12px">Booking ID: ${b.id}</div>
+            </div>
+          </div>
+          <div style="margin-top:8px" class="muted">Patient: ${escapeHtml(b.patientName)} • ${escapeHtml(b.phone)} ${b.age ? '• Age: ' + escapeHtml(b.age) : ''}</div>
+          ${b.note ? `<div style="margin-top:6px">Note: ${escapeHtml(b.note)}</div>` : ''}
+          <div style="display:flex;gap:8px;margin-top:8px;justify-content:flex-end">
+            <button class="back" onclick='deleteBooking("${b.id}")'>Cancel</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function showBookingsPage(){
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('hospitalsPage').classList.add('hidden');
+      document.getElementById('bookingsPage').classList.remove('hidden');
+      renderBookings();
+      closeModal();
+    }
+
+    function openBookings(){ showBookingsPage(); }
+
+    function deleteBooking(id){
+      if(!confirm('Ma hubtaa inaad tirtirayso booking-kan?')) return;
+      let arr = loadBookings();
+      arr = arr.filter(b => b.id !== id);
+      saveBookings(arr);
+      renderBookings();
+    }
+
+    // Search & filter
+    function onSearch(){
+      const q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+      const dept = (document.getElementById('filterDept').value || '').trim();
+      const filtered = hospitals.filter(h => {
+        const matchesQ = q === '' || h.name.toLowerCase().includes(q) || h.location.toLowerCase().includes(q) || h.desc.toLowerCase().includes(q);
+        const matchesDept = dept === '' || h.dept.includes(dept);
+        return matchesQ && matchesDept;
+      });
+      renderHospitals(filtered);
+    }
+
+    // Modal helpers
+    function showModal(html){
+      const modal = document.getElementById('modal');
+      modal.innerHTML = html;
+      modal.classList.remove('hidden');
+    }
+    function closeModal(){
+      const modal = document.getElementById('modal');
+      modal.innerHTML = '';
+      modal.classList.add('hidden');
+    }
+
+    // Simple escaping
+    function escapeHtml(str){
+      if(typeof str !== 'string') return str;
+      return str.replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+  </script>
 </body>
 </html>
