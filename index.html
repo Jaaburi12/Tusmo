@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Super App - Demo</title>
+  <title>Super App - Ethiopia</title>
   <style>
     :root{
       --primary:#007bff;
@@ -118,8 +118,8 @@
     <div class="title">
       <span style="font-size:20px">🌐</span>
       <div>
-        <div style="font-weight:600">Super App Demo</div>
-        <div style="font-size:12px; opacity:0.9">Hospitals booking sample</div>
+        <div style="font-weight:600">Super App Ethiopia</div>
+        <div style="font-size:12px; opacity:0.9">Adeegga buugista isbitaalka</div>
       </div>
     </div>
 
@@ -135,23 +135,23 @@
       <div class="grid">
         <div class="card" onclick="openHospitals()">
           <div style="font-size:28px">🏥</div>
-          <div style="margin-top:8px; font-weight:600">Hospitals</div>
-          <div class="muted" style="margin-top:6px">Book appointment, see details</div>
+          <div style="margin-top:8px; font-weight:600">Isbitaalka</div>
+          <div class="muted" style="margin-top:6px">Ballan ballan, faahfaahin ka ar</div>
         </div>
-        <div class="card" onclick="alert('Flights page demo: coming soon')">
+        <div class="card" onclick="alert('Baqdadaha page demo: imaya soon')">
           <div style="font-size:28px">✈️</div>
-          <div style="margin-top:8px; font-weight:600">Flights</div>
-          <div class="muted" style="margin-top:6px">Search & book tickets</div>
+          <div style="margin-top:8px; font-weight:600">Baqdadaha</div>
+          <div class="muted" style="margin-top:6px">Raadi oo buugsi tigidhada</div>
         </div>
-        <div class="card" onclick="alert('Store demo: coming soon')">
+        <div class="card" onclick="alert('Dukaan demo: imaya soon')">
           <div style="font-size:28px">🛒</div>
-          <div style="margin-top:8px; font-weight:600">Store</div>
-          <div class="muted" style="margin-top:6px">Shop products</div>
+          <div style="margin-top:8px; font-weight:600">Dukaan</div>
+          <div class="muted" style="margin-top:6px">Iibso alaabo</div>
         </div>
         <div class="card" onclick="openBookings()">
           <div style="font-size:28px">🗂️</div>
-          <div style="margin-top:8px; font-weight:600">My Bookings</div>
-          <div class="muted" style="margin-top:6px">View saved appointments</div>
+          <div style="margin-top:8px; font-weight:600">Ballamahayga</div>
+          <div class="muted" style="margin-top:6px">Arag ballamada keydsan</div>
         </div>
       </div>
     </div>
@@ -159,18 +159,18 @@
     <!-- Hospitals -->
     <div id="hospitalsPage" class="hidden">
       <div class="topbar">
-        <button class="back" onclick="showDashboard()">← Back</button>
+        <button class="back" onclick="showDashboard()">← Dib u noqo</button>
         <div class="search">
-          <input id="searchInput" type="search" placeholder="Raadi isbitaal ama goob (magac, location...)">
+          <input id="searchInput" type="search" placeholder="Raadi isbitaal ama goob (magac, meel...)">
         </div>
         <div style="width:140px;">
           <select id="filterDept">
-            <option value="">All Departments</option>
-            <option value="General">General</option>
-            <option value="Cardiology">Cardiology</option>
-            <option value="Pediatrics">Pediatrics</option>
-            <option value="Orthopedics">Orthopedics</option>
-            <option value="Dentistry">Dentistry</option>
+            <option value="">Dhammaan qaybaha</option>
+            <option value="General">Guud</option>
+            <option value="Cardiology">Qalbiga</option>
+            <option value="Pediatrics">Carruurta</option>
+            <option value="Orthopedics">Lafaha</option>
+            <option value="Dentistry">Ilkaha</option>
           </select>
         </div>
       </div>
@@ -183,8 +183,8 @@
     <!-- Bookings list (separate view) -->
     <div id="bookingsPage" class="hidden">
       <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-        <button class="back" onclick="showDashboard()">← Back</button>
-        <h3 style="margin:0;">My Bookings</h3>
+        <button class="back" onclick="showDashboard()">← Dib u noqo</button>
+        <h3 style="margin:0;">Ballamahayga</h3>
       </div>
       <div id="bookListArea">
         <!-- populated -->
@@ -193,18 +193,18 @@
   </div>
 
   <footer>
-    Demo — HTML/JS Web App. Kaydinta bookings waxay ku jirtaa browser-ka (localStorage).
+    HTML/JS Web App. Kaydinta bookings waxay ku jirtaa browser-ka (localStorage).
   </footer>
 
   <!-- Modal for booking -->
   <div id="modal" class="hidden"></div>
 
   <script>
-    // Sample hospitals data with available slots
+    // Sample Ethiopian hospitals data with available slots
     const hospitals = [
       {
-        id:1, name:"Somali Care Hospital", location:"Hargeisa", dept:["General","Pediatrics","Dentistry"],
-        desc:"Isbitaal casri ah oo bixiya adeegyada guud iyo carruurta.",
+        id:1, name:"Black Lion Hospital", location:"Addis Ababa", dept:["General","Cardiology","Orthopedics"],
+        desc:"Ispitaalka ugu waaweyn ee Ethiopia, qaabilsan caafimaadka dadweynaha.",
         slots:[
           {id:"s1","date":"2025-09-10","time":"09:00"},
           {id:"s2","date":"2025-09-10","time":"11:00"},
@@ -212,26 +212,42 @@
         ]
       },
       {
-        id:2, name:"Ocean View Medical", location:"Mogadishu", dept:["Cardiology","Orthopedics","General"],
-        desc:"Xarun caafimaad oo ku taalla caasimada.",
+        id:2, name:"St. Paul's Hospital", location:"Addis Ababa", dept:["General","Pediatrics","Dentistry"],
+        desc:"Isbitaal caalami ah oo bixiya adeegyo tayo sare leh.",
         slots:[
           {id:"s4","date":"2025-09-12","time":"10:30"},
           {id:"s5","date":"2025-09-12","time":"14:00"}
         ]
       },
       {
-        id:3, name:"Green Valley Clinic", location:"Berbera", dept:["General","Dentistry"],
-        desc:"Clinic yar oo la isku halayn karo.",
+        id:3, name:"Tikur Anbessa Hospital", location:"Addis Ababa", dept:["General","Cardiology"],
+        desc:"Isbitaalka ugu da'da weyn ee Ethiopia, leh khabiirrada ugu fiican.",
         slots:[
           {id:"s6","date":"2025-09-13","time":"08:00"},
           {id:"s7","date":"2025-09-13","time":"09:30"},
           {id:"s8","date":"2025-09-14","time":"12:00"}
         ]
+      },
+      {
+        id:4, name:"Jimma University Medical Center", location:"Jimma", dept:["General","Pediatrics","Orthopedics"],
+        desc:"Xarun caafimaad oo ku taalla koonfur-bari Ethiopia.",
+        slots:[
+          {id:"s9","date":"2025-09-15","time":"08:30"},
+          {id:"s10","date":"2025-09-15","time":"13:00"}
+        ]
+      },
+      {
+        id:5, name:"Ayder Referral Hospital", location:"Mekelle", dept:["General","Cardiology","Dentistry"],
+        desc:"Xarun caafimaad oo waawayn oo ku taalla Tigray.",
+        slots:[
+          {id:"s11","date":"2025-09-16","time":"10:00"},
+          {id:"s12","date":"2025-09-16","time":"11:30"}
+        ]
       }
     ];
 
     // LocalStorage key
-    const BOOK_KEY = 'superapp_bookings_demo_v1';
+    const BOOK_KEY = 'superapp_ethiopia_bookings_demo_v1';
 
     // init
     document.addEventListener('DOMContentLoaded', () => {
@@ -276,8 +292,8 @@
             <p class="muted small">${escapeHtml(h.desc)}</p>
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
-            <button class="btn" onclick='openDetails(${h.id})'>Details</button>
-            <button class="btn secondary" onclick='openBooking(${h.id})'>Book</button>
+            <button class="btn" onclick='openDetails(${h.id})'>Faahfaahin</button>
+            <button class="btn secondary" onclick='openBooking(${h.id})'>Ballan</button>
           </div>
         `;
         container.appendChild(el);
@@ -292,15 +308,15 @@
         <div class="modal-bg" onclick="closeModal()">
           <div class="modal" onclick="event.stopPropagation()">
             <h3 style="margin:0 0 6px 0">${escapeHtml(h.name)}</h3>
-            <p class="muted">${escapeHtml(h.location)} • Departments: ${h.dept.join(', ')}</p>
+            <p class="muted">${escapeHtml(h.location)} • Qaybaha: ${h.dept.join(', ')}</p>
             <p style="margin-top:10px">${escapeHtml(h.desc)}</p>
-            <h4 style="margin-top:12px">Upcoming Slots</h4>
+            <h4 style="margin-top:12px">Wakhtiyada la heli karo</h4>
             <div>
               ${h.slots.map(s=>`<div class="book-item">${s.date} — ${s.time}</div>`).join('')}
             </div>
             <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
-              <button class="back" onclick="closeModal()">Close</button>
-              <button class="btn" onclick="openBooking(${h.id})">Book Now</button>
+              <button class="back" onclick="closeModal()">Xidh</button>
+              <button class="btn" onclick="openBooking(${h.id})">Ballan Hadda</button>
             </div>
           </div>
         </div>
@@ -317,9 +333,9 @@
       const html = `
         <div class="modal-bg" onclick="closeModal()">
           <div class="modal" onclick="event.stopPropagation()">
-            <h3 style="margin:0 0 6px 0">Book appointment — ${escapeHtml(h.name)}</h3>
+            <h3 style="margin:0 0 6px 0">Ballan - ${escapeHtml(h.name)}</h3>
             <p class="muted">${escapeHtml(h.location)}</p>
-            <label>Dooro slot</label>
+            <label>Dooro wakhti</label>
             <select id="slotSelect">${options}</select>
 
             <label>Magaca bukaanka</label>
@@ -327,21 +343,21 @@
 
             <div class="row">
               <div class="col">
-                <label>Da' (optional)</label>
-                <input id="age" placeholder="eg. 30" />
+                <label>Da' (ikhtiyaari)</label>
+                <input id="age" placeholder="tusaale: 30" />
               </div>
               <div class="col">
-                <label>Number / Taleefan</label>
-                <input id="phone" placeholder="+252 6..." />
+                <label>Lambarka taleefanka</label>
+                <input id="phone" placeholder="+251 ..." />
               </div>
             </div>
 
-            <label>Qoraal (reason) (optional)</label>
-            <input id="note" placeholder="e.g. Fever, checkup, etc." />
+            <label>Sababta (ikhtiyaari)</label>
+            <input id="note" placeholder="tusaale: Qandho, baaris, iwm." />
 
             <div style="display:flex; gap:8px; margin-top:12px; justify-content:flex-end;">
-              <button class="back" onclick="closeModal()">Cancel</button>
-              <button class="btn" onclick="confirmBooking(${h.id})">Confirm Booking</button>
+              <button class="back" onclick="closeModal()">Jooji</button>
+              <button class="btn" onclick="confirmBooking(${h.id})">Xaqiiji Ballanka</button>
             </div>
           </div>
         </div>
@@ -355,7 +371,7 @@
       if(!h) return;
       const slotId = document.getElementById('slotSelect').value;
       const slot = h.slots.find(s=>s.id===slotId);
-      if(!slot){ alert('Fadlan dooro slot'); return; }
+      if(!slot){ alert('Fadlan dooro wakhti'); return; }
       const name = (document.getElementById('patientName').value || '').trim();
       const phone = (document.getElementById('phone').value || '').trim();
       const age = (document.getElementById('age').value || '').trim();
@@ -385,7 +401,7 @@
       saveBookings(bookings);
 
       closeModal();
-      alert('Booking la diiwaan geliyey! Waxaad ka arki kartaa My Bookings.');
+      alert('Ballanka waa la keydiyay! Waxaad ka arki kartaa Ballamahayga.');
       renderBookings();
       showBookingsPage();
     }
@@ -422,13 +438,13 @@
             </div>
             <div style="text-align:right">
               <div>${escapeHtml(b.date)} • ${escapeHtml(b.time)}</div>
-              <div class="muted" style="font-size:12px">Booking ID: ${b.id}</div>
+              <div class="muted" style="font-size:12px">Ballan ID: ${b.id}</div>
             </div>
           </div>
-          <div style="margin-top:8px" class="muted">Patient: ${escapeHtml(b.patientName)} • ${escapeHtml(b.phone)} ${b.age ? '• Age: ' + escapeHtml(b.age) : ''}</div>
-          ${b.note ? `<div style="margin-top:6px">Note: ${escapeHtml(b.note)}</div>` : ''}
+          <div style="margin-top:8px" class="muted">Bukaanka: ${escapeHtml(b.patientName)} • ${escapeHtml(b.phone)} ${b.age ? '• Da: ' + escapeHtml(b.age) : ''}</div>
+          ${b.note ? `<div style="margin-top:6px">Qoraal: ${escapeHtml(b.note)}</div>` : ''}
           <div style="display:flex;gap:8px;margin-top:8px;justify-content:flex-end">
-            <button class="back" onclick='deleteBooking("${b.id}")'>Cancel</button>
+            <button class="back" onclick='deleteBooking("${b.id}")">Tirtir</button>
           </div>
         </div>
       `).join('');
@@ -445,7 +461,7 @@
     function openBookings(){ showBookingsPage(); }
 
     function deleteBooking(id){
-      if(!confirm('Ma hubtaa inaad tirtirayso booking-kan?')) return;
+      if(!confirm('Ma hubtaa inaad tirtirayso ballankan?')) return;
       let arr = loadBookings();
       arr = arr.filter(b => b.id !== id);
       saveBookings(arr);
@@ -483,4 +499,4 @@
     }
   </script>
 </body>
-</html>
+  </html>
