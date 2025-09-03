@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="so">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethiopian Services Hub - Adeegga Ethiopia</title>
+    <title>Ethiopian Services Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -99,6 +99,27 @@
         
         nav a:hover, nav a.active {
             background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
         }
         
         .hero {
@@ -355,6 +376,24 @@
             border-top: 1px solid #ddd;
         }
         
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: var(--accent);
+            color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -396,7 +435,7 @@
                 </div>
                 <div class="logo-text">
                     <h1>Ethiopian Services Hub</h1>
-                    <p>Adeegga Ethiopia - Isbitaal, Dukaan, iyo Duullo</p>
+                    <p>Your one-stop solution for Ethiopian services</p>
                 </div>
             </div>
             <nav>
@@ -406,94 +445,98 @@
                     <li><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
                 </ul>
             </nav>
+            <div class="language-switcher">
+                <button class="lang-btn active">EN</button>
+                <button class="lang-btn">SO</button>
+            </div>
         </div>
     </header>
 
     <div class="hero">
         <div class="container">
-            <h2>Ku soo dhawoow Adeegga Ethiopia</h2>
-            <p>Hel adeegyo tayo sare leh - Isbitaalka, Dukaamada, iyo Duullimaadyada Ethiopia oo dhan meel hal ah</p>
+            <h2>Welcome to Ethiopian Services Hub</h2>
+            <p>Find the best Ethiopian services - hospitals, stores, and flights all in one place</p>
         </div>
     </div>
 
     <div class="container">
-        <h2 class="section-title">Adeegyada Nala Heli Kartid</h2>
+        <h2 class="section-title">Our Services</h2>
         
         <div class="services">
-            <div class="service-card" onclick="showTab('hospitals')">
+            <div class="service-card" data-tab="hospitals">
                 <div class="card-header">
                     <div class="card-icon">
                         <i class="fas fa-hospital"></i>
                     </div>
-                    <h3>Isbitaalka</h3>
+                    <h3>Hospitals</h3>
                 </div>
                 <div class="card-body">
-                    <p>Hel isbitaalka ugu fiican Ethiopia, ballan ku qado, hel xogta doctorrada</p>
+                    <p>Find the best hospitals in Ethiopia, book appointments, get doctor information</p>
                     <ul>
-                        <li><i class="fas fa-check"></i> Ballan qado online ah</li>
-                        <li><i class="fas fa-check"></i> Hel xogta doctorrada</li>
-                        <li><i class="fas fa-check"></i> Raadi isbitaal ku dhow adiga</li>
+                        <li><i class="fas fa-check"></i> Online appointment booking</li>
+                        <li><i class="fas fa-check"></i> Doctor information and availability</li>
+                        <li><i class="fas fa-check"></i> Find hospitals near you</li>
                     </ul>
-                    <div class="btn btn-accent">Daawo Isbitaalka</div>
+                    <div class="btn btn-accent view-service">View Hospitals</div>
                 </div>
             </div>
             
-            <div class="service-card" onclick="showTab('store')">
+            <div class="service-card" data-tab="store">
                 <div class="card-header">
                     <div class="card-icon">
                         <i class="fas fa-shopping-cart"></i>
                     </div>
-                    <h3>Dukaamada</h3>
+                    <h3>Stores</h3>
                 </div>
                 <div class="card-body">
-                    <p>Iibso alaabooyin kala duwan, ka soo iibso dukaamada Ethiopia</p>
+                    <p>Shop for various products from Ethiopian stores</p>
                     <ul>
-                        <li><i class="fas fa-check"></i> Iibso alaabooyinka guryaha</li>
-                        <li><i class="fas fa-check"></i> Noocyo kala duwan oo cunto ah</li>
-                        <li><i class="fas fa-check"></i> Lacag bixi online ah</li>
+                        <li><i class="fas fa-check"></i> Household products</li>
+                        <li><i class="fas fa-check"></i> Various food items</li>
+                        <li><i class="fas fa-check"></i> Online payment options</li>
                     </ul>
-                    <div class="btn btn-accent">Daawo Dukaamada</div>
+                    <div class="btn btn-accent view-service">View Stores</div>
                 </div>
             </div>
             
-            <div class="service-card" onclick="showTab('flights')">
+            <div class="service-card" data-tab="flights">
                 <div class="card-header">
                     <div class="card-icon">
                         <i class="fas fa-plane"></i>
                     </div>
-                    <h3>Duullimaadyada</h3>
+                    <h3>Flights</h3>
                 </div>
                 <div class="card-body">
-                    <p>Raadi oo ballan ku qado duullimaadyada Ethiopia</p>
+                    <p>Search and book flights within Ethiopia</p>
                     <ul>
-                        <li><i class="fas fa-check"></i> Raadi duullimaad</li>
-                        <li><i class="fas fa-check"></i> Ballan ku qado tigidhada</li>
-                        <li><i class="fas fa-check"></i> Kaydi ballamadaaga</li>
+                        <li><i class="fas fa-check"></i> Flight search and comparison</li>
+                        <li><i class="fas fa-check"></i> Easy ticket booking</li>
+                        <li><i class="fas fa-check"></i> Save your bookings</li>
                     </ul>
-                    <div class="btn btn-accent">Daawo Duullimaadyada</div>
+                    <div class="btn btn-accent view-service">View Flights</div>
                 </div>
             </div>
         </div>
         
-        <h2 class="section-title">Ballan Qadashada Adeegga</h2>
+        <h2 class="section-title">Service Booking</h2>
         
         <div class="tab-container">
             <div class="tabs">
-                <div class="tab active" onclick="showTab('hospitals')">Isbitaalka</div>
-                <div class="tab" onclick="showTab('store')">Dukaamada</div>
-                <div class="tab" onclick="showTab('flights')">Duullimaadyada</div>
-                <div class="tab" onclick="showTab('my-bookings')">Ballamahayga</div>
+                <div class="tab active" data-tab="hospitals">Hospitals</div>
+                <div class="tab" data-tab="store">Stores</div>
+                <div class="tab" data-tab="flights">Flights</div>
+                <div class="tab" data-tab="my-bookings">My Bookings</div>
             </div>
             
             <div id="hospitals" class="tab-content active">
-                <h3>Ballan Qado Isbitaal</h3>
-                <p>Buuxi foomkan hoose si aad u ballan ku qadatid isbitaalka Ethiopia</p>
+                <h3>Hospital Appointment</h3>
+                <p>Fill out the form below to book an appointment at Ethiopian hospitals</p>
                 
                 <div class="booking-form">
                     <div class="form-group">
-                        <label for="hospital">Dooro Isbitaal</label>
+                        <label for="hospital">Select Hospital</label>
                         <select id="hospital">
-                            <option value="">-- Dooro Isbitaal --</option>
+                            <option value="">-- Select Hospital --</option>
                             <option value="black-lion">Black Lion Hospital - Addis Ababa</option>
                             <option value="st-paul">St. Paul's Hospital - Addis Ababa</option>
                             <option value="tikur-anbessa">Tikur Anbessa Hospital - Addis Ababa</option>
@@ -503,21 +546,21 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="department">Qaybta</label>
+                        <label for="department">Department</label>
                         <select id="department">
-                            <option value="">-- Dooro Qaybta --</option>
-                            <option value="general">Caafimaad Guud</option>
-                            <option value="cardiology">Qalbiga</option>
-                            <option value="pediatrics">Carruurta</option>
-                            <option value="orthopedics">Lafaha</option>
-                            <option value="dentistry">Ilkaha</option>
+                            <option value="">-- Select Department --</option>
+                            <option value="general">General Medicine</option>
+                            <option value="cardiology">Cardiology</option>
+                            <option value="pediatrics">Pediatrics</option>
+                            <option value="orthopedics">Orthopedics</option>
+                            <option value="dentistry">Dentistry</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
                         <label for="doctor">Doctor</label>
                         <select id="doctor">
-                            <option value="">-- Dooro Doctor --</option>
+                            <option value="">-- Select Doctor --</option>
                             <option value="dr1">Dr. Ahmed Mohammed</option>
                             <option value="dr2">Dr. Selamawit Bekele</option>
                             <option value="dr3">Dr. Tesfaye Girma</option>
@@ -526,43 +569,43 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="date">Taariikhda</label>
+                        <label for="date">Date</label>
                         <input type="date" id="date">
                     </div>
                     
                     <div class="form-group">
-                        <label for="time">Wakhti</label>
+                        <label for="time">Time</label>
                         <select id="time">
-                            <option value="">-- Dooro Wakhti --</option>
-                            <option value="9:00">9:00 Subaxnimo</option>
-                            <option value="10:00">10:00 Subaxnimo</option>
-                            <option value="11:00">11:00 Subaxnimo</option>
-                            <option value="13:00">1:00 Galabnimo</option>
-                            <option value="14:00">2:00 Galabnimo</option>
-                            <option value="15:00">3:00 Galabnimo</option>
+                            <option value="">-- Select Time --</option>
+                            <option value="9:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
                         </select>
                     </div>
                     
                     <div class="form-group full-width">
-                        <label for="notes">Qoraal Dheeraad ah (Ikhtiyaari)</label>
+                        <label for="notes">Additional Notes (Optional)</label>
                         <textarea id="notes" rows="3" style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 6px;"></textarea>
                     </div>
                     
                     <div class="form-group full-width">
-                        <button class="btn btn-accent"><i class="fas fa-calendar-check"></i> Ballan Qado</button>
+                        <button class="btn btn-accent" id="book-appointment"><i class="fas fa-calendar-check"></i> Book Appointment</button>
                     </div>
                 </div>
             </div>
             
             <div id="store" class="tab-content">
-                <h3>Iibso Alaabooyinka</h3>
-                <p>Ka dalbo alaabooyin dukaamada Ethiopia</p>
+                <h3>Shop Products</h3>
+                <p>Order products from Ethiopian stores</p>
                 
                 <div class="booking-form">
                     <div class="form-group">
-                        <label for="store">Dooro Dukaan</label>
+                        <label for="store">Select Store</label>
                         <select id="store">
-                            <option value="">-- Dooro Dukaan --</option>
+                            <option value="">-- Select Store --</option>
                             <option value="souq">Souq Ethiopia - Addis Ababa</option>
                             <option value="shoa">Shoa Supermarket - Addis Ababa</option>
                             <option value="addis">Addis Mercato - Addis Ababa</option>
@@ -572,52 +615,52 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="category">Qaybta Alaabta</label>
+                        <label for="category">Product Category</label>
                         <select id="category">
-                            <option value="">-- Dooro Qaybta --</option>
-                            <option value="food">Cuntooyinka</option>
-                            <option value="clothing">Dharka</option>
-                            <option value="electronics">Alaabta Korontada</option>
-                            <option value="home">Qalabka Guryaha</option>
-                            <option value="health">Qalabka Caafimaadka</option>
+                            <option value="">-- Select Category --</option>
+                            <option value="food">Food Items</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="home">Home Appliances</option>
+                            <option value="health">Health Products</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="product">Magaca Alaabta</label>
-                        <input type="text" id="product" placeholder="Geli magaca alaabta">
+                        <label for="product">Product Name</label>
+                        <input type="text" id="product" placeholder="Enter product name">
                     </div>
                     
                     <div class="form-group">
-                        <label for="quantity">Tirada</label>
+                        <label for="quantity">Quantity</label>
                         <input type="number" id="quantity" min="1" value="1">
                     </div>
-                         
+                    
                     <div class="form-group">
-                        <label for="delivery-date">Taariikhda La Soo Gaadhiyo</label>
+                        <label for="delivery-date">Delivery Date</label>
                         <input type="date" id="delivery-date">
                     </div>
                     
                     <div class="form-group full-width">
-                        <label for="address">Cinwaanka</label>
-                        <textarea id="address" rows="2" style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 6px;" placeholder="Geli cinwaankaaga"></textarea>
+                        <label for="address">Delivery Address</label>
+                        <textarea id="address" rows="2" style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 6px;" placeholder="Enter your address"></textarea>
                     </div>
                     
                     <div class="form-group full-width">
-                        <button class="btn btn-accent"><i class="fas fa-shopping-cart"></i> Dalbo Alaabta</button>
+                        <button class="btn btn-accent" id="order-product"><i class="fas fa-shopping-cart"></i> Order Product</button>
                     </div>
                 </div>
             </div>
             
             <div id="flights" class="tab-content">
-                <h3>Ballan Qado Duullimaad</h3>
-                <p>Raadi oo ballan ku qado duullimaadyada Ethiopia</p>
+                <h3>Flight Booking</h3>
+                <p>Search and book flights within Ethiopia</p>
                 
                 <div class="booking-form">
                     <div class="form-group">
-                        <label for="from">Ka imanaysa</label>
+                        <label for="from">From</label>
                         <select id="from">
-                            <option value="">-- Dooro Magaalada --</option>
+                            <option value="">-- Select City --</option>
                             <option value="addis">Addis Ababa (ADD)</option>
                             <option value="dire">Dire Dawa (DIR)</option>
                             <option value="mekelle">Mekelle (MQX)</option>
@@ -627,9 +670,9 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="to">U tagaysa</label>
+                        <label for="to">To</label>
                         <select id="to">
-                            <option value="">-- Dooro Magaalada --</option>
+                            <option value="">-- Select City --</option>
                             <option value="addis">Addis Ababa (ADD)</option>
                             <option value="dire">Dire Dawa (DIR)</option>
                             <option value="mekelle">Mekelle (MQX)</option>
@@ -639,28 +682,28 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="depart-date">Taariikhda Bilaabmaya</label>
+                        <label for="depart-date">Departure Date</label>
                         <input type="date" id="depart-date">
                     </div>
                     
                     <div class="form-group">
-                        <label for="return-date">Taariikhda Soo Noqonaysa (Ikhtiyaari)</label>
+                        <label for="return-date">Return Date (Optional)</label>
                         <input type="date" id="return-date">
                     </div>
                     
                     <div class="form-group">
-                        <label for="passengers">Tiroda Rakaabka</label>
+                        <label for="passengers">Number of Passengers</label>
                         <select id="passengers">
-                            <option value="1">1 Rakaab</option>
-                            <option value="2">2 Rakaab</option>
-                            <option value="3">3 Rakaab</option>
-                            <option value="4">4 Rakaab</option>
-                            <option value="5">5+ Rakaab</option>
+                            <option value="1">1 Passenger</option>
+                            <option value="2">2 Passengers</option>
+                            <option value="3">3 Passengers</option>
+                            <option value="4">4 Passengers</option>
+                            <option value="5">5+ Passengers</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="class">Nooca Fasalaka</label>
+                        <label for="class">Class</label>
                         <select id="class">
                             <option value="economy">Economy</option>
                             <option value="business">Business</option>
@@ -669,55 +712,55 @@
                     </div>
                     
                     <div class="form-group full-width">
-                        <button class="btn btn-accent"><i class="fas fa-search"></i> Raadi Duullimaadyada</button>
+                        <button class="btn btn-accent" id="search-flights"><i class="fas fa-search"></i> Search Flights</button>
                     </div>
                 </div>
             </div>
             
             <div id="my-bookings" class="tab-content">
-                <h3>Ballamahayga</h3>
-                <p>Daawo dhammaan ballamada aad qadatay</p>
+                <h3>My Bookings</h3>
+                <p>View all your bookings and appointments</p>
                 
                 <div class="booking-list">
                     <div class="booking-item">
                         <div class="booking-info">
-                            <h4>Black Lion Hospital - Caafimaad Guud</h4>
-                            <p><i class="far fa-calendar-alt"></i> 10-Sept-2023 | <i class="far fa-clock"></i> 10:00 Subaxnimo</p>
+                            <h4>Black Lion Hospital - General Medicine</h4>
+                            <p><i class="far fa-calendar-alt"></i> 10-Sept-2023 | <i class="far fa-clock"></i> 10:00 AM</p>
                             <p><i class="fas fa-user-md"></i> Dr. Ahmed Mohammed</p>
                         </div>
                         <div class="booking-actions">
-                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i> Beddel</button>
-                            <button class="action-btn cancel-btn"><i class="fas fa-times"></i> Jooji</button>
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="action-btn cancel-btn"><i class="fas fa-times"></i> Cancel</button>
                         </div>
                     </div>
                     
                     <div class="booking-item">
                         <div class="booking-info">
-                            <h4>Addis Mercato - Cuntooyinka</h4>
-                            <p><i class="far fa-calendar-alt"></i> La soo gaadhiyi doona: 12-Sept-2023</p>
-                            <p><i class="fas fa-box"></i> 5 Alaab oo kala duwan</p>
+                            <h4>Addis Mercato - Food Items</h4>
+                            <p><i class="far fa-calendar-alt"></i> Delivery on: 12-Sept-2023</p>
+                            <p><i class="fas fa-box"></i> 5 different products</p>
                         </div>
                         <div class="booking-actions">
-                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i> Beddel</button>
-                            <button class="action-btn cancel-btn"><i class="fas fa-times"></i> Jooji</button>
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="action-btn cancel-btn"><i class="fas fa-times"></i> Cancel</button>
                         </div>
                     </div>
                     
                     <div class="booking-item">
                         <div class="booking-info">
-                            <h4>Duullimaad: Addis Ababa to Mekelle</h4>
+                            <h4>Flight: Addis Ababa to Mekelle</h4>
                             <p><i class="far fa-calendar-alt"></i> 15-Sept-2023 | <i class="fas fa-plane"></i> Ethiopian Airlines</p>
-                            <p><i class="fas fa-users"></i> 2 Rakaab | <i class="fas fa-chair"></i> Economy</p>
+                            <p><i class="fas fa-users"></i> 2 Passengers | <i class="fas fa-chair"></i> Economy</p>
                         </div>
                         <div class="booking-actions">
-                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i> Beddel</button>
-                            <button class="action-btn cancel-btn"><i class="fas fa-times"></i> Jooji</button>
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="action-btn cancel-btn"><i class="fas fa-times"></i> Cancel</button>
                         </div>
                     </div>
                 </div>
                 
                 <div style="text-align: center; margin-top: 30px;">
-                    <button class="btn"><i class="fas fa-history"></i> Daawo Taariikhda Ballamada</button>
+                    <button class="btn" id="view-history"><i class="fas fa-history"></i> View Booking History</button>
                 </div>
             </div>
         </div>
@@ -725,12 +768,30 @@
 
     <footer>
         <div class="container">
-            <p>© 2023 Ethiopian Services Hub. Dhammaan Xuquuqaha Waafaqsan Yihiin.</p>
+            <p>© 2023 Ethiopian Services Hub. All Rights Reserved.</p>
             <p>Whatsapp: +251 912 345 678 | Email: info@ethiopianservices.com</p>
         </div>
     </footer>
 
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> <span id="notification-text">Operation completed successfully!</span>
+    </div>
+
     <script>
+        // Show notification function
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Tab switching functionality
         function showTab(tabId) {
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(tab => {
@@ -747,12 +808,81 @@
             
             // Activate the tab button
             document.querySelectorAll('.tab').forEach(tab => {
-                if (tab.textContent.toLowerCase().includes(tabId)) {
+                if (tab.getAttribute('data-tab') === tabId) {
                     tab.classList.add('active');
                 }
             });
         }
-        
+
+        // Set up event listeners for tabs
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                showTab(tabId);
+            });
+        });
+
+        // Set up event listeners for service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                showTab(tabId);
+            });
+        });
+
+        // Set up event listeners for view service buttons
+        document.querySelectorAll('.view-service').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent triggering the card click event
+                const tabId = this.closest('.service-card').getAttribute('data-tab');
+                showTab(tabId);
+            });
+        });
+
+        // Set up event listeners for form submission buttons
+        document.getElementById('book-appointment').addEventListener('click', function() {
+            showNotification('Hospital appointment booked successfully!');
+        });
+
+        document.getElementById('order-product').addEventListener('click', function() {
+            showNotification('Product order placed successfully!');
+        });
+
+        document.getElementById('search-flights').addEventListener('click', function() {
+            showNotification('Searching for available flights...');
+        });
+
+        document.getElementById('view-history').addEventListener('click', function() {
+            showNotification('Showing booking history...');
+        });
+
+        // Set up event listeners for action buttons
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                showNotification('Edit option selected');
+            });
+        });
+
+        document.querySelectorAll('.cancel-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                showNotification('Booking cancelled');
+            });
+        });
+
+        // Language switcher functionality
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                if (this.textContent === 'SO') {
+                    showNotification('Language switched to Somali');
+                } else {
+                    showNotification('Language switched to English');
+                }
+            });
+        });
+
         // Set minimum date for date inputs to today
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('date').setAttribute('min', today);
@@ -761,4 +891,4 @@
         document.getElementById('return-date').setAttribute('min', today);
     </script>
 </body>
-   </html>
+</html>
