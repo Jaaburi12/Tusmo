@@ -1,502 +1,764 @@
 <!DOCTYPE html>
 <html lang="so">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Super App - Ethiopia</title>
-  <style>
-    :root{
-      --primary:#007bff;
-      --bg:#f5f7fb;
-      --card:#fff;
-    }
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:var(--bg);
-      color:#222;
-    }
-    header{
-      background:var(--primary);
-      color:white;
-      padding:14px 18px;
-      font-size:18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-    header .title {display:flex; gap:12px; align-items:center;}
-    header button{
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.25);
-      color:white;
-      padding:8px 12px;
-      border-radius:8px;
-      cursor:pointer;
-    }
-
-    .container{padding:18px; max-width:980px; margin:0 auto;}
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:16px;
-    }
-    .card{
-      background:var(--card);
-      padding:20px;
-      border-radius:12px;
-      box-shadow:0 6px 14px rgba(20,30,50,0.06);
-      text-align:center;
-      cursor:pointer;
-      transition:transform .14s ease, box-shadow .14s ease;
-    }
-    .card:hover{ transform:translateY(-4px); box-shadow:0 10px 22px rgba(20,30,50,0.09); }
-
-    /* Hospitals page */
-    .hidden{ display:none; }
-    .topbar{ display:flex; gap:12px; align-items:center; margin-bottom:12px; }
-    .back{ padding:8px 12px; background:white; border-radius:10px; border:1px solid #eee; cursor:pointer; }
-    .search{ flex:1; }
-    input[type="search"], select {
-      width:100%;
-      padding:10px 12px;
-      border-radius:10px;
-      border:1px solid #ddd;
-      background:white;
-      box-sizing:border-box;
-    }
-    .list{ display:grid; gap:12px; margin-top:12px; }
-    .hosp-card{
-      display:flex;
-      gap:12px;
-      padding:14px;
-      border-radius:10px;
-      background:white;
-      border:1px solid #f0f0f0;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .h-info{ flex:1; }
-    .h-info h3{ margin:0 0 6px 0; font-size:16px; }
-    .h-info p{ margin:0; font-size:13px; color:#555; }
-
-    .btn {
-      background:var(--primary);
-      color:white;
-      border:none;
-      padding:8px 12px;
-      border-radius:8px;
-      cursor:pointer;
-    }
-    .btn.secondary{ background:#6c757d; }
-
-    /* modal */
-    .modal-bg{
-      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-      background:rgba(0,0,0,0.4); z-index:60;
-    }
-    .modal{
-      width:100%; max-width:520px;
-      background:white; border-radius:12px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,0.2);
-    }
-    label{ display:block; margin-top:10px; font-size:13px; color:#333; }
-    input, select { width:100%; padding:10px 12px; margin-top:6px; border-radius:8px; border:1px solid #ddd; box-sizing:border-box; }
-
-    .row{ display:flex; gap:10px; }
-    .col{ flex:1; }
-    .small{ font-size:13px; color:#666; margin-top:6px; }
-
-    .book-list{ margin-top:14px; }
-    .book-item{ background:#fff; padding:12px; border-radius:10px; margin-bottom:8px; border:1px solid #f0f0f0; }
-    .muted{ color:#666; font-size:13px; }
-    footer{ text-align:center; color:#777; padding:20px 0; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian Services Hub - Adeegga Ethiopia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2d5b7c;
+            --secondary: #e74c3c;
+            --accent: #27ae60;
+            --light: #f5f7fb;
+            --dark: #2c3e50;
+            --text: #333;
+            --card-bg: #fff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fb 0%, #e8ecf1 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), #3a7bab);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 32px;
+            background: white;
+            color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .logo-text p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(rgba(45, 91, 124, 0.9), rgba(45, 91, 124, 0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%232d5b7c" width="100" height="100"/><path fill="%233a7bab" d="M0 0L100 100M100 0L0 100" stroke-width="0.5"/></svg>');
+            background-size: cover;
+            color: white;
+            margin-bottom: 30px;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .hero h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            padding: 20px;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+        }
+        
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .card-header h3 {
+            font-size: 22px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .card-body p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .card-body ul {
+            list-style: none;
+            margin: 15px 0;
+        }
+        
+        .card-body li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .card-body li:last-child {
+            border-bottom: none;
+        }
+        
+        .card-body li i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background: #3a7bab;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #c0392b;
+        }
+        
+        .btn-accent {
+            background: var(--accent);
+        }
+        
+        .btn-accent:hover {
+            background: #219653;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: var(--primary);
+            font-size: 28px;
+        }
+        
+        .tab-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f0f4f8;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            background: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 25px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .booking-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(45, 91, 124, 0.2);
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .booking-list {
+            margin: 20px 0;
+        }
+        
+        .booking-item {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .booking-info h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .booking-info p {
+            color: #666;
+        }
+        
+        .booking-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .edit-btn {
+            background: #f0f4f8;
+            color: var(--primary);
+        }
+        
+        .cancel-btn {
+            background: #ffebee;
+            color: var(--secondary);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .services {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .booking-actions {
+                align-self: flex-end;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="title">
-      <span style="font-size:20px">🌐</span>
-      <div>
-        <div style="font-weight:600">Super App Ethiopia</div>
-        <div style="font-size:12px; opacity:0.9">Adeegga buugista isbitaalka</div>
-      </div>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-globe-africa"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Ethiopian Services Hub</h1>
+                    <p>Adeegga Ethiopia - Isbitaal, Dukaan, iyo Duullo</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i> My Account</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h2>Ku soo dhawoow Adeegga Ethiopia</h2>
+            <p>Hel adeegyo tayo sare leh - Isbitaalka, Dukaamada, iyo Duullimaadyada Ethiopia oo dhan meel hal ah</p>
+        </div>
     </div>
 
-    <div>
-      <button id="btnDashboard">Dashboard</button>
+    <div class="container">
+        <h2 class="section-title">Adeegyada Nala Heli Kartid</h2>
+        
+        <div class="services">
+            <div class="service-card" onclick="showTab('hospitals')">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3>Isbitaalka</h3>
+                </div>
+                <div class="card-body">
+                    <p>Hel isbitaalka ugu fiican Ethiopia, ballan ku qado, hel xogta doctorrada</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Ballan qado online ah</li>
+                        <li><i class="fas fa-check"></i> Hel xogta doctorrada</li>
+                        <li><i class="fas fa-check"></i> Raadi isbitaal ku dhow adiga</li>
+                    </ul>
+                    <div class="btn btn-accent">Daawo Isbitaalka</div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showTab('store')">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Dukaamada</h3>
+                </div>
+                <div class="card-body">
+                    <p>Iibso alaabooyin kala duwan, ka soo iibso dukaamada Ethiopia</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Iibso alaabooyinka guryaha</li>
+                        <li><i class="fas fa-check"></i> Noocyo kala duwan oo cunto ah</li>
+                        <li><i class="fas fa-check"></i> Lacag bixi online ah</li>
+                    </ul>
+                    <div class="btn btn-accent">Daawo Dukaamada</div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showTab('flights')">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>Duullimaadyada</h3>
+                </div>
+                <div class="card-body">
+                    <p>Raadi oo ballan ku qado duullimaadyada Ethiopia</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Raadi duullimaad</li>
+                        <li><i class="fas fa-check"></i> Ballan ku qado tigidhada</li>
+                        <li><i class="fas fa-check"></i> Kaydi ballamadaaga</li>
+                    </ul>
+                    <div class="btn btn-accent">Daawo Duullimaadyada</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Ballan Qadashada Adeegga</h2>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('hospitals')">Isbitaalka</div>
+                <div class="tab" onclick="showTab('store')">Dukaamada</div>
+                <div class="tab" onclick="showTab('flights')">Duullimaadyada</div>
+                <div class="tab" onclick="showTab('my-bookings')">Ballamahayga</div>
+            </div>
+            
+            <div id="hospitals" class="tab-content active">
+                <h3>Ballan Qado Isbitaal</h3>
+                <p>Buuxi foomkan hoose si aad u ballan ku qadatid isbitaalka Ethiopia</p>
+                
+                <div class="booking-form">
+                    <div class="form-group">
+                        <label for="hospital">Dooro Isbitaal</label>
+                        <select id="hospital">
+                            <option value="">-- Dooro Isbitaal --</option>
+                            <option value="black-lion">Black Lion Hospital - Addis Ababa</option>
+                            <option value="st-paul">St. Paul's Hospital - Addis Ababa</option>
+                            <option value="tikur-anbessa">Tikur Anbessa Hospital - Addis Ababa</option>
+                            <option value="jimma">Jimma University Medical Center - Jimma</option>
+                            <option value="ayder">Ayder Referral Hospital - Mekelle</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="department">Qaybta</label>
+                        <select id="department">
+                            <option value="">-- Dooro Qaybta --</option>
+                            <option value="general">Caafimaad Guud</option>
+                            <option value="cardiology">Qalbiga</option>
+                            <option value="pediatrics">Carruurta</option>
+                            <option value="orthopedics">Lafaha</option>
+                            <option value="dentistry">Ilkaha</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="doctor">Doctor</label>
+                        <select id="doctor">
+                            <option value="">-- Dooro Doctor --</option>
+                            <option value="dr1">Dr. Ahmed Mohammed</option>
+                            <option value="dr2">Dr. Selamawit Bekele</option>
+                            <option value="dr3">Dr. Tesfaye Girma</option>
+                            <option value="dr4">Dr. Fatuma Hussein</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Taariikhda</label>
+                        <input type="date" id="date">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="time">Wakhti</label>
+                        <select id="time">
+                            <option value="">-- Dooro Wakhti --</option>
+                            <option value="9:00">9:00 Subaxnimo</option>
+                            <option value="10:00">10:00 Subaxnimo</option>
+                            <option value="11:00">11:00 Subaxnimo</option>
+                            <option value="13:00">1:00 Galabnimo</option>
+                            <option value="14:00">2:00 Galabnimo</option>
+                            <option value="15:00">3:00 Galabnimo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="notes">Qoraal Dheeraad ah (Ikhtiyaari)</label>
+                        <textarea id="notes" rows="3" style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 6px;"></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <button class="btn btn-accent"><i class="fas fa-calendar-check"></i> Ballan Qado</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="store" class="tab-content">
+                <h3>Iibso Alaabooyinka</h3>
+                <p>Ka dalbo alaabooyin dukaamada Ethiopia</p>
+                
+                <div class="booking-form">
+                    <div class="form-group">
+                        <label for="store">Dooro Dukaan</label>
+                        <select id="store">
+                            <option value="">-- Dooro Dukaan --</option>
+                            <option value="souq">Souq Ethiopia - Addis Ababa</option>
+                            <option value="shoa">Shoa Supermarket - Addis Ababa</option>
+                            <option value="addis">Addis Mercato - Addis Ababa</option>
+                            <option value="dire">Dire Dawa Market - Dire Dawa</option>
+                            <option value="hawassa">Hawassa Market - Hawassa</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Qaybta Alaabta</label>
+                        <select id="category">
+                            <option value="">-- Dooro Qaybta --</option>
+                            <option value="food">Cuntooyinka</option>
+                            <option value="clothing">Dharka</option>
+                            <option value="electronics">Alaabta Korontada</option>
+                            <option value="home">Qalabka Guryaha</option>
+                            <option value="health">Qalabka Caafimaadka</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product">Magaca Alaabta</label>
+                        <input type="text" id="product" placeholder="Geli magaca alaabta">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quantity">Tirada</label>
+                        <input type="number" id="quantity" min="1" value="1">
+                    </div>
+                         
+                    <div class="form-group">
+                        <label for="delivery-date">Taariikhda La Soo Gaadhiyo</label>
+                        <input type="date" id="delivery-date">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="address">Cinwaanka</label>
+                        <textarea id="address" rows="2" style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 6px;" placeholder="Geli cinwaankaaga"></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <button class="btn btn-accent"><i class="fas fa-shopping-cart"></i> Dalbo Alaabta</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="flights" class="tab-content">
+                <h3>Ballan Qado Duullimaad</h3>
+                <p>Raadi oo ballan ku qado duullimaadyada Ethiopia</p>
+                
+                <div class="booking-form">
+                    <div class="form-group">
+                        <label for="from">Ka imanaysa</label>
+                        <select id="from">
+                            <option value="">-- Dooro Magaalada --</option>
+                            <option value="addis">Addis Ababa (ADD)</option>
+                            <option value="dire">Dire Dawa (DIR)</option>
+                            <option value="mekelle">Mekelle (MQX)</option>
+                            <option value="bahirdar">Bahir Dar (BJR)</option>
+                            <option value="jimma">Jimma (JIM)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="to">U tagaysa</label>
+                        <select id="to">
+                            <option value="">-- Dooro Magaalada --</option>
+                            <option value="addis">Addis Ababa (ADD)</option>
+                            <option value="dire">Dire Dawa (DIR)</option>
+                            <option value="mekelle">Mekelle (MQX)</option>
+                            <option value="bahirdar">Bahir Dar (BJR)</option>
+                            <option value="jimma">Jimma (JIM)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="depart-date">Taariikhda Bilaabmaya</label>
+                        <input type="date" id="depart-date">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="return-date">Taariikhda Soo Noqonaysa (Ikhtiyaari)</label>
+                        <input type="date" id="return-date">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passengers">Tiroda Rakaabka</label>
+                        <select id="passengers">
+                            <option value="1">1 Rakaab</option>
+                            <option value="2">2 Rakaab</option>
+                            <option value="3">3 Rakaab</option>
+                            <option value="4">4 Rakaab</option>
+                            <option value="5">5+ Rakaab</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="class">Nooca Fasalaka</label>
+                        <select id="class">
+                            <option value="economy">Economy</option>
+                            <option value="business">Business</option>
+                            <option value="first">First Class</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <button class="btn btn-accent"><i class="fas fa-search"></i> Raadi Duullimaadyada</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="my-bookings" class="tab-content">
+                <h3>Ballamahayga</h3>
+                <p>Daawo dhammaan ballamada aad qadatay</p>
+                
+                <div class="booking-list">
+                    <div class="booking-item">
+                        <div class="booking-info">
+                            <h4>Black Lion Hospital - Caafimaad Guud</h4>
+                            <p><i class="far fa-calendar-alt"></i> 10-Sept-2023 | <i class="far fa-clock"></i> 10:00 Subaxnimo</p>
+                            <p><i class="fas fa-user-md"></i> Dr. Ahmed Mohammed</p>
+                        </div>
+                        <div class="booking-actions">
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i> Beddel</button>
+                            <button class="action-btn cancel-btn"><i class="fas fa-times"></i> Jooji</button>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-item">
+                        <div class="booking-info">
+                            <h4>Addis Mercato - Cuntooyinka</h4>
+                            <p><i class="far fa-calendar-alt"></i> La soo gaadhiyi doona: 12-Sept-2023</p>
+                            <p><i class="fas fa-box"></i> 5 Alaab oo kala duwan</p>
+                        </div>
+                        <div class="booking-actions">
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i> Beddel</button>
+                            <button class="action-btn cancel-btn"><i class="fas fa-times"></i> Jooji</button>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-item">
+                        <div class="booking-info">
+                            <h4>Duullimaad: Addis Ababa to Mekelle</h4>
+                            <p><i class="far fa-calendar-alt"></i> 15-Sept-2023 | <i class="fas fa-plane"></i> Ethiopian Airlines</p>
+                            <p><i class="fas fa-users"></i> 2 Rakaab | <i class="fas fa-chair"></i> Economy</p>
+                        </div>
+                        <div class="booking-actions">
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i> Beddel</button>
+                            <button class="action-btn cancel-btn"><i class="fas fa-times"></i> Jooji</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn"><i class="fas fa-history"></i> Daawo Taariikhda Ballamada</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <div class="container">
-    <!-- Dashboard -->
-    <div id="dashboard">
-      <h2 style="margin:8px 0 18px 0;">Menu</h2>
-      <div class="grid">
-        <div class="card" onclick="openHospitals()">
-          <div style="font-size:28px">🏥</div>
-          <div style="margin-top:8px; font-weight:600">Isbitaalka</div>
-          <div class="muted" style="margin-top:6px">Ballan ballan, faahfaahin ka ar</div>
+    <footer>
+        <div class="container">
+            <p>© 2023 Ethiopian Services Hub. Dhammaan Xuquuqaha Waafaqsan Yihiin.</p>
+            <p>Whatsapp: +251 912 345 678 | Email: info@ethiopianservices.com</p>
         </div>
-        <div class="card" onclick="alert('Baqdadaha page demo: imaya soon')">
-          <div style="font-size:28px">✈️</div>
-          <div style="margin-top:8px; font-weight:600">Baqdadaha</div>
-          <div class="muted" style="margin-top:6px">Raadi oo buugsi tigidhada</div>
-        </div>
-        <div class="card" onclick="alert('Dukaan demo: imaya soon')">
-          <div style="font-size:28px">🛒</div>
-          <div style="margin-top:8px; font-weight:600">Dukaan</div>
-          <div class="muted" style="margin-top:6px">Iibso alaabo</div>
-        </div>
-        <div class="card" onclick="openBookings()">
-          <div style="font-size:28px">🗂️</div>
-          <div style="margin-top:8px; font-weight:600">Ballamahayga</div>
-          <div class="muted" style="margin-top:6px">Arag ballamada keydsan</div>
-        </div>
-      </div>
-    </div>
+    </footer>
 
-    <!-- Hospitals -->
-    <div id="hospitalsPage" class="hidden">
-      <div class="topbar">
-        <button class="back" onclick="showDashboard()">← Dib u noqo</button>
-        <div class="search">
-          <input id="searchInput" type="search" placeholder="Raadi isbitaal ama goob (magac, meel...)">
-        </div>
-        <div style="width:140px;">
-          <select id="filterDept">
-            <option value="">Dhammaan qaybaha</option>
-            <option value="General">Guud</option>
-            <option value="Cardiology">Qalbiga</option>
-            <option value="Pediatrics">Carruurta</option>
-            <option value="Orthopedics">Lafaha</option>
-            <option value="Dentistry">Ilkaha</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="hospList" class="list">
-        <!-- populated by JS -->
-      </div>
-    </div>
-
-    <!-- Bookings list (separate view) -->
-    <div id="bookingsPage" class="hidden">
-      <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-        <button class="back" onclick="showDashboard()">← Dib u noqo</button>
-        <h3 style="margin:0;">Ballamahayga</h3>
-      </div>
-      <div id="bookListArea">
-        <!-- populated -->
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    HTML/JS Web App. Kaydinta bookings waxay ku jirtaa browser-ka (localStorage).
-  </footer>
-
-  <!-- Modal for booking -->
-  <div id="modal" class="hidden"></div>
-
-  <script>
-    // Sample Ethiopian hospitals data with available slots
-    const hospitals = [
-      {
-        id:1, name:"Black Lion Hospital", location:"Addis Ababa", dept:["General","Cardiology","Orthopedics"],
-        desc:"Ispitaalka ugu waaweyn ee Ethiopia, qaabilsan caafimaadka dadweynaha.",
-        slots:[
-          {id:"s1","date":"2025-09-10","time":"09:00"},
-          {id:"s2","date":"2025-09-10","time":"11:00"},
-          {id:"s3","date":"2025-09-11","time":"15:00"}
-        ]
-      },
-      {
-        id:2, name:"St. Paul's Hospital", location:"Addis Ababa", dept:["General","Pediatrics","Dentistry"],
-        desc:"Isbitaal caalami ah oo bixiya adeegyo tayo sare leh.",
-        slots:[
-          {id:"s4","date":"2025-09-12","time":"10:30"},
-          {id:"s5","date":"2025-09-12","time":"14:00"}
-        ]
-      },
-      {
-        id:3, name:"Tikur Anbessa Hospital", location:"Addis Ababa", dept:["General","Cardiology"],
-        desc:"Isbitaalka ugu da'da weyn ee Ethiopia, leh khabiirrada ugu fiican.",
-        slots:[
-          {id:"s6","date":"2025-09-13","time":"08:00"},
-          {id:"s7","date":"2025-09-13","time":"09:30"},
-          {id:"s8","date":"2025-09-14","time":"12:00"}
-        ]
-      },
-      {
-        id:4, name:"Jimma University Medical Center", location:"Jimma", dept:["General","Pediatrics","Orthopedics"],
-        desc:"Xarun caafimaad oo ku taalla koonfur-bari Ethiopia.",
-        slots:[
-          {id:"s9","date":"2025-09-15","time":"08:30"},
-          {id:"s10","date":"2025-09-15","time":"13:00"}
-        ]
-      },
-      {
-        id:5, name:"Ayder Referral Hospital", location:"Mekelle", dept:["General","Cardiology","Dentistry"],
-        desc:"Xarun caafimaad oo waawayn oo ku taalla Tigray.",
-        slots:[
-          {id:"s11","date":"2025-09-16","time":"10:00"},
-          {id:"s12","date":"2025-09-16","time":"11:30"}
-        ]
-      }
-    ];
-
-    // LocalStorage key
-    const BOOK_KEY = 'superapp_ethiopia_bookings_demo_v1';
-
-    // init
-    document.addEventListener('DOMContentLoaded', () => {
-      renderHospitals(hospitals);
-      document.getElementById('searchInput').addEventListener('input', onSearch);
-      document.getElementById('filterDept').addEventListener('change', onSearch);
-      document.getElementById('btnDashboard').addEventListener('click', showDashboard);
-      renderBookings();
-    });
-
-    // Show dashboard
-    function showDashboard(){
-      document.getElementById('dashboard').classList.remove('hidden');
-      document.getElementById('hospitalsPage').classList.add('hidden');
-      document.getElementById('bookingsPage').classList.add('hidden');
-      closeModal();
-    }
-
-    // Open hospitals
-    function openHospitals(){
-      document.getElementById('dashboard').classList.add('hidden');
-      document.getElementById('hospitalsPage').classList.remove('hidden');
-      document.getElementById('bookingsPage').classList.add('hidden');
-      closeModal();
-    }
-
-    // Render hospital list
-    function renderHospitals(list){
-      const container = document.getElementById('hospList');
-      container.innerHTML = '';
-      if(list.length === 0){
-        container.innerHTML = '<div class="muted">Ma jiro isbitaal ku habboon raadintaada.</div>';
-        return;
-      }
-      list.forEach(h => {
-        const el = document.createElement('div');
-        el.className = 'hosp-card';
-        el.innerHTML = `
-          <div class="h-info">
-            <h3>${escapeHtml(h.name)}</h3>
-            <p class="muted">${escapeHtml(h.location)} • ${h.dept.join(', ')}</p>
-            <p class="muted small">${escapeHtml(h.desc)}</p>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <button class="btn" onclick='openDetails(${h.id})'>Faahfaahin</button>
-            <button class="btn secondary" onclick='openBooking(${h.id})'>Ballan</button>
-          </div>
-        `;
-        container.appendChild(el);
-      });
-    }
-
-    // Open details (simple modal)
-    function openDetails(id){
-      const h = hospitals.find(x=>x.id===id);
-      if(!h) return;
-      const html = `
-        <div class="modal-bg" onclick="closeModal()">
-          <div class="modal" onclick="event.stopPropagation()">
-            <h3 style="margin:0 0 6px 0">${escapeHtml(h.name)}</h3>
-            <p class="muted">${escapeHtml(h.location)} • Qaybaha: ${h.dept.join(', ')}</p>
-            <p style="margin-top:10px">${escapeHtml(h.desc)}</p>
-            <h4 style="margin-top:12px">Wakhtiyada la heli karo</h4>
-            <div>
-              ${h.slots.map(s=>`<div class="book-item">${s.date} — ${s.time}</div>`).join('')}
-            </div>
-            <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
-              <button class="back" onclick="closeModal()">Xidh</button>
-              <button class="btn" onclick="openBooking(${h.id})">Ballan Hadda</button>
-            </div>
-          </div>
-        </div>
-      `;
-      showModal(html);
-    }
-
-    // Open booking modal
-    function openBooking(id){
-      const h = hospitals.find(x=>x.id===id);
-      if(!h) return;
-      // build slot options
-      const options = h.slots.map(s => `<option value="${s.id}">${s.date} — ${s.time}</option>`).join('');
-      const html = `
-        <div class="modal-bg" onclick="closeModal()">
-          <div class="modal" onclick="event.stopPropagation()">
-            <h3 style="margin:0 0 6px 0">Ballan - ${escapeHtml(h.name)}</h3>
-            <p class="muted">${escapeHtml(h.location)}</p>
-            <label>Dooro wakhti</label>
-            <select id="slotSelect">${options}</select>
-
-            <label>Magaca bukaanka</label>
-            <input id="patientName" placeholder="Magaca buuxa" />
-
-            <div class="row">
-              <div class="col">
-                <label>Da' (ikhtiyaari)</label>
-                <input id="age" placeholder="tusaale: 30" />
-              </div>
-              <div class="col">
-                <label>Lambarka taleefanka</label>
-                <input id="phone" placeholder="+251 ..." />
-              </div>
-            </div>
-
-            <label>Sababta (ikhtiyaari)</label>
-            <input id="note" placeholder="tusaale: Qandho, baaris, iwm." />
-
-            <div style="display:flex; gap:8px; margin-top:12px; justify-content:flex-end;">
-              <button class="back" onclick="closeModal()">Jooji</button>
-              <button class="btn" onclick="confirmBooking(${h.id})">Xaqiiji Ballanka</button>
-            </div>
-          </div>
-        </div>
-      `;
-      showModal(html);
-    }
-
-    // Confirm booking: save to localStorage
-    function confirmBooking(hospitalId){
-      const h = hospitals.find(x=>x.id===hospitalId);
-      if(!h) return;
-      const slotId = document.getElementById('slotSelect').value;
-      const slot = h.slots.find(s=>s.id===slotId);
-      if(!slot){ alert('Fadlan dooro wakhti'); return; }
-      const name = (document.getElementById('patientName').value || '').trim();
-      const phone = (document.getElementById('phone').value || '').trim();
-      const age = (document.getElementById('age').value || '').trim();
-      const note = (document.getElementById('note').value || '').trim();
-
-      if(!name || !phone){
-        alert('Fadlan buuxi magaca iyo number-ka taleefanka');
-        return;
-      }
-
-      // create booking object
-      const bookings = loadBookings();
-      const booking = {
-        id: 'b' + Date.now(),
-        hospitalId: h.id,
-        hospitalName: h.name,
-        location: h.location,
-        slotId: slot.id,
-        date: slot.date,
-        time: slot.time,
-        patientName: name,
-        phone, age, note,
-        createdAt: new Date().toISOString()
-      };
-
-      bookings.push(booking);
-      saveBookings(bookings);
-
-      closeModal();
-      alert('Ballanka waa la keydiyay! Waxaad ka arki kartaa Ballamahayga.');
-      renderBookings();
-      showBookingsPage();
-    }
-
-    // LocalStorage helpers
-    function loadBookings(){
-      try{
-        const raw = localStorage.getItem(BOOK_KEY);
-        if(!raw) return [];
-        return JSON.parse(raw);
-      }catch(e){
-        return [];
-      }
-    }
-    function saveBookings(arr){
-      localStorage.setItem(BOOK_KEY, JSON.stringify(arr));
-    }
-
-    // Bookings view
-    function renderBookings(){
-      const area = document.getElementById('bookListArea');
-      if(!area) return;
-      const arr = loadBookings();
-      if(arr.length === 0){
-        area.innerHTML = '<div class="muted">Ma jiro booking kaydsan.</div>';
-        return;
-      }
-      area.innerHTML = arr.map(b => `
-        <div class="book-item">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <strong>${escapeHtml(b.hospitalName)}</strong>
-              <div class="muted">${escapeHtml(b.location)}</div>
-            </div>
-            <div style="text-align:right">
-              <div>${escapeHtml(b.date)} • ${escapeHtml(b.time)}</div>
-              <div class="muted" style="font-size:12px">Ballan ID: ${b.id}</div>
-            </div>
-          </div>
-          <div style="margin-top:8px" class="muted">Bukaanka: ${escapeHtml(b.patientName)} • ${escapeHtml(b.phone)} ${b.age ? '• Da: ' + escapeHtml(b.age) : ''}</div>
-          ${b.note ? `<div style="margin-top:6px">Qoraal: ${escapeHtml(b.note)}</div>` : ''}
-          <div style="display:flex;gap:8px;margin-top:8px;justify-content:flex-end">
-            <button class="back" onclick='deleteBooking("${b.id}")">Tirtir</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function showBookingsPage(){
-      document.getElementById('dashboard').classList.add('hidden');
-      document.getElementById('hospitalsPage').classList.add('hidden');
-      document.getElementById('bookingsPage').classList.remove('hidden');
-      renderBookings();
-      closeModal();
-    }
-
-    function openBookings(){ showBookingsPage(); }
-
-    function deleteBooking(id){
-      if(!confirm('Ma hubtaa inaad tirtirayso ballankan?')) return;
-      let arr = loadBookings();
-      arr = arr.filter(b => b.id !== id);
-      saveBookings(arr);
-      renderBookings();
-    }
-
-    // Search & filter
-    function onSearch(){
-      const q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
-      const dept = (document.getElementById('filterDept').value || '').trim();
-      const filtered = hospitals.filter(h => {
-        const matchesQ = q === '' || h.name.toLowerCase().includes(q) || h.location.toLowerCase().includes(q) || h.desc.toLowerCase().includes(q);
-        const matchesDept = dept === '' || h.dept.includes(dept);
-        return matchesQ && matchesDept;
-      });
-      renderHospitals(filtered);
-    }
-
-    // Modal helpers
-    function showModal(html){
-      const modal = document.getElementById('modal');
-      modal.innerHTML = html;
-      modal.classList.remove('hidden');
-    }
-    function closeModal(){
-      const modal = document.getElementById('modal');
-      modal.innerHTML = '';
-      modal.classList.add('hidden');
-    }
-
-    // Simple escaping
-    function escapeHtml(str){
-      if(typeof str !== 'string') return str;
-      return str.replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    }
-  </script>
+    <script>
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Deactivate all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Activate the selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activate the tab button
+            document.querySelectorAll('.tab').forEach(tab => {
+                if (tab.textContent.toLowerCase().includes(tabId)) {
+                    tab.classList.add('active');
+                }
+            });
+        }
+        
+        // Set minimum date for date inputs to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+        document.getElementById('delivery-date').setAttribute('min', today);
+        document.getElementById('depart-date').setAttribute('min', today);
+        document.getElementById('return-date').setAttribute('min', today);
+    </script>
 </body>
-  </html>
+   </html>
